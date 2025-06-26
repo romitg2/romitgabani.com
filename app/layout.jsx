@@ -4,7 +4,7 @@ import '@/global.css'
 export const metadata = {
   title: 'Romit Gabani',
   icons: {
-    icon: '/sitelogo.png',
+    icon: '/favicon.ico',
   },
 }
 
