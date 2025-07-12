@@ -29,12 +29,11 @@ export default function Page() {
           <h1 className='my-4 text-5xl font-bold leading-tight'>Next 3D Starter</h1>
           <p className='mb-8 text-2xl leading-normal'>A minimalist starter for React, React-three-fiber and Threejs.</p>
         </div>
+        <View className='absolute top-0 flex h-full w-full flex-col items-center justify-center'>
+          <Blob />
+          <Common />
+        </View>
       </div>
-
-      <View className='absolute top-0 flex h-screen w-full flex-col items-center justify-center'>
-        <Blob />
-        <Common />
-      </View>
     </>
   )
 }
