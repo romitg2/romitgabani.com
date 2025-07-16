@@ -1,9 +1,17 @@
 {
-  "extends": ["next", "prettier", "plugin:tailwindcss/recommended"],
+  "extends": [
+    "next",
+    "prettier",
+    "plugin:tailwindcss/recommended"
+  ],
   "rules": {
     "import/prefer-default-export": "off",
     "no-console": "warn",
     "no-var": "error",
-    "no-html-link-for-pages": "off"
+    "no-html-link-for-pages": "off",
+    "tailwindcss/enforces-shorthand": "off",  // Disable shorthand enforcement for classnames
+    "tailwindcss/classnames-order": "off",    // Disable classnames order enforcement
+    "tailwindcss/migration-from-tailwind-2": "off", // Disable migration-related warnings
+    "react/no-unescaped-entities": "off"      // Allow unescaped entities like `'`
   }
 }
