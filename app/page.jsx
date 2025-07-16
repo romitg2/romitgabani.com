@@ -1,6 +1,7 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import { useState } from 'react'
 import { Suspense } from 'react'
 
 const Logo = dynamic(() => import('@/components/canvas/Examples').then((mod) => mod.Logo), { ssr: false })
@@ -23,12 +24,14 @@ const View = dynamic(() => import('@/components/canvas/View').then((mod) => mod.
 })
 const Common = dynamic(() => import('@/components/canvas/View').then((mod) => mod.Common), { ssr: false })
 
-const Experience = () => {
+const Experience = ({ experienceId }) => {
   return (
     <div className='w-[95%] bg-black text-center h-full mx-auto'>
       <View className='flex h-full w-full flex-col rounded-xl items-center justify-center'>
         <Suspense fallback={null}>
-          <Logo route='/blob' scale={0.6} position={[0, 0, 0]} />
+          {experienceId === 0 && <Logo route='/blob' scale={0.6} position={[0, 0, 0]} />}
+          {experienceId === 1 && <Dog route='/blob' scale={0.6} position={[0, 0, 0]} />}
+          {experienceId === 2 && <Duck route='/blob' scale={0.6} position={[0, 0, 0]} />}
           <Common />
         </Suspense>
       </View>
@@ -55,15 +58,24 @@ function Layout() {
  * the colored blocks to represent the layout structure.
  */
 const PageLayout = () => {
+  const [experienceId, setExperienceId] = useState(0)
+
   return (
     <div className='min-h-screen flex flex-col gap-4 p-4'>
       {/* Top section of the layout */}
       <header className='flex flex-col md:flex-row gap-4'>
         {/* Main header block (corresponds to the red block) */}
-        <div className='bg-red-400 h-32 rounded-xl shadow-md flex-grow'>{/* This block is intentionally empty */}</div>
+        <div className=' h-32 rounded-xl border-2 border-black flex-grow'>
+          <h1 className='text-black text-[12vh] font-bold'>Hi, I'm Romit</h1>
+        </div>
         {/* Secondary header block (corresponds to the top-right gray block) */}
-        <div className='bg-gray-400 h-32 rounded-xl shadow-md w-full md:w-1/3'>
-          {/* This block is intentionally empty */}
+        <div className='h-32 flex flex-col gap-4 w-full md:w-1/3'>
+          <div className='text-black text-2xl px-4 flex-1 rounded-xl border-2 border-black font-bold'>
+            <h1 className='text-center my-2'>Shoot an Email</h1>
+          </div>
+          <div className='text-black text-2xl px-4 flex-1 rounded-xl border-2 border-black font-bold'>
+            <h1 className='text-center my-2'>Schedule a Call</h1>
+          </div>
         </div>
       </header>
 
@@ -72,15 +84,25 @@ const PageLayout = () => {
         {/* Sidebar on the left */}
         <aside className='w-full md:w-1/4 flex flex-col gap-4'>
           {/* Top sidebar block (corresponds to the top-left gray block) */}
-          <div className='bg-gray-400 h-24 rounded-xl shadow-md'>{/* This block is intentionally empty */}</div>
+          <div className='bg-pink-400 h-24 rounded-xl shadow-md'>{/* This block is intentionally empty */}</div>
           {/* Bottom sidebar block (corresponds to the light red/pink block) */}
-          <div className='bg-pink-300 rounded-xl shadow-md flex-grow'>{/* This block is intentionally empty */}</div>
+          <div className='bg-pink-300 rounded-xl shadow-md flex-grow'>
+            {[0, 1, 2].map((id) => (
+              <div
+                key={id}
+                className='bg-pink-300 my-5 hover:cursor-pointer rounded-xl shadow-md flex-grow'
+                onClick={() => setExperienceId(id)}
+              >
+                <h1 className='text-center'>Experience {id}</h1>
+              </div>
+            ))}
+          </div>
         </aside>
 
         {/* Main content panel (corresponds to the black block) */}
         <section className='bg-black rounded-xl shadow-2xl flex-grow'>
           {/* This block is intentionally empty */}
-          <Experience />
+          <Experience experienceId={experienceId} />
         </section>
       </main>
     </div>
